@@ -19,55 +19,37 @@ const bot = createBot({
       console.log(`${payload.user.username} is ready!`);
 
       // スラッシュコマンド登録
-      await bot.helpers.upsertGlobalApplicationCommands([
-        {
-          name: "s",
-          description: "SEIHEKIROコマンド",
-          options: [
-            {
-              name: "hekiro",
-              description: "開始",
-              type: 1,
-              options: [
+      await upsertGuildApplicationCommands(
+              APPLICATION_ID,
+              GUILD_ID,
+              [
                 {
-                  name: "count",
-                  description: "人数",
-                  type: 4,
-                  required: true
-                }
-              ]
+                  name: "s",
+                  description: "start command",
+                },
+              ],
+            );
+          },
+
+          async interactionCreate(bot, interaction) {
+            if (interaction.type === 2 && interaction.data?.name === "s") {
+              await bot.helpers.sendInteractionResponse(
+                interaction.id,
+                interaction.token,
+                {
+                  type: InteractionResponseTypes.ChannelMessageWithSource,
+                  data: {
+                    content: "start",
+                  },
+                },
+              );
             }
-          ]
-        }
-      ]);
+          },
+        },
+      });
 
-    },
+      startBot(bot);
 
-    interactionCreate: async (bot, interaction) => {
-
-      console.log("interaction received");
-
-      if (interaction.data?.name !== "s") return;
-
-      const sub = interaction.data.options?.[0];
-
-      if (sub?.name !== "hekiro") return;
-
-      const count = sub.options?.[0].value as number;
-
-      await bot.helpers.sendInteractionResponse(
-        interaction.id,
-        interaction.token,
-        {
-          type: 4,
-          data: {
-            content: `SEIHEKIRO開始：${count}人`
-          }
-        }
-      );
-    }
-
-  }
+Deno.cron("Continuous Request", "*/2 * * * *", () => {
+    console.log("running...");
 });
-
-await startBot(bot);
