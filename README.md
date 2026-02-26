@@ -1,2 +1,7 @@
-# Discordeno-template
-DiscordenoとDeno Deployでボットを作成する際のテンプレート
+# 性癖狼
+## 概要
+性癖がばれるワードウルフ
+
+## ルール
+
+## 
