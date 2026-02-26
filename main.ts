@@ -18,7 +18,7 @@ const bot = createBot({
     ready: async (bot, payload) => {
       console.log(`${payload.user.username} is ready!`);
 
-      // ✅ グローバルコマンド登録（ID不要）
+      // グローバルコマンド登録（ID不要）
       await bot.helpers.upsertGlobalApplicationCommands([
         {
           name: "s",
