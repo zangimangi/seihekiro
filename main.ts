@@ -1,8 +1,9 @@
 import {
   createBot,
   getBotIdFromToken,
-  startBot
-} from "@discordeno/mod.ts";
+  startBot,
+  InteractionResponseTypes,
+} from "https://deno.land/x/discordeno@18.0.1/mod.ts";
 
 import "$std/dotenv/load.ts";
 
