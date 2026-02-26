@@ -45,3 +45,11 @@ const bot = createBot({
 });
 
 startBot(bot);
+
+// ホスティング対策
+Deno.serve(() => new Response("Bot is running"));
+
+// 常時起動
+Deno.cron("Continuous Request", "*/2 * * * *", () => {
+    console.log("running...");
+});
